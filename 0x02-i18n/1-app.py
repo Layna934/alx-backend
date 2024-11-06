@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Basic Babel Setup
+This is the main file of the flask application.
 """
 from flask import Flask, render_template
 from flask_babel import Babel
@@ -8,9 +8,10 @@ from flask_babel import Babel
 app = Flask(__name__)
 babel = Babel(app)
 
-class Config():
+
+class Config(object):
     """
-    This class is used to configure Babel
+    This class is used to configure the application.
     """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
@@ -19,12 +20,16 @@ class Config():
 
 app.config.from_object(Config)
 
-@app.route('/')
-def home():
+
+@app.route('/', methods=['GET'], strict_slashes=False)
+def index() -> str:
     """
-    This is a function to render template
+    This is the main page of the flask application.
+    Returns:
+        str: The rendered template.
     """
     return render_template('1-index.html')
 
+
 if __name__ == '__main__':
-    app.run(host:"0.0.0.0", port:5000)
+    app.run(host='0.0.0.0', port=5000)
